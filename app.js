@@ -4,8 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// 添加中间件body-parser
+var bodyParser = require('body-parser');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// 引入新闻路由
+var newsRouter = require('./routes/news')
 
 var app = express();
 
@@ -19,8 +24,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', indexRouter);      //显示页路由
+app.use('/users', usersRouter); //用户页路由
+app.use('/news', newsRouter);   //新闻页路由
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
